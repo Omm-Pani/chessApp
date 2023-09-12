@@ -1,0 +1,32 @@
+.homepage {
+  height: 100vh;
+  background: #312e2b;
+}
+.chessboard_wrap {
+  padding-left: 30px;
+}
+.chessboard {
+  position: relative;
+  display: grid;
+  place-items: center;
+  grid-gap: 0;
+  grid-template-columns: repeat(8, [col] 10vw);
+  grid-template-rows: repeat(8, [row] 10vw);
+  width: 80vw;
+  border: 3px solid #000;
+  box-shadow: 0 5px 8px #777;
+}
+@media (min-width: 750px) {
+  .chessboard {
+    grid-gap: 0;
+    grid-template-columns: repeat(8, [col] 4.5vw);
+    grid-template-rows: repeat(8, [row] 4.5vw);
+    width: 36vw;
+  }
+}
+
+.player {
+  color: white;
+  padding: 10px;
+  padding-left: 50px;
+}
