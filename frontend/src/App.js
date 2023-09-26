@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Chessboard from "./chess/chessboard";
+import Chessboard from "./components/chessboard/chessboard";
+
 // import Login from "./login";
 // import { socket } from "./socket";
 // import { ConnectionState } from "./components/connectionState";
