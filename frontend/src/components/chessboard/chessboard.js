@@ -6,8 +6,9 @@ import RookRule from "../../utils/piece/RookRule";
 import BishopRule from "../../utils/piece/BishopRule";
 import QueenRule from "../../utils/piece/QueenRule";
 import KingRule from "../../utils/piece/KingRule";
+import KnightRule from "../../utils/piece/KnightRule";
 
-export default function Chessboard({ isWhite }) {
+export default function Chessboard() {
   const y = [1, 2, 3, 4, 5, 6, 7, 8];
   const x = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -20,7 +21,8 @@ export default function Chessboard({ isWhite }) {
 
   const handlePiece = (e) => {
     const pieceToMove = e.target;
-    console.log(pieceToMove.id);
+    const isWhite = pieceToMove.classList.contains("w");
+    console.log(isWhite);
     setPieceId(pieceToMove.id);
 
     if (
@@ -52,6 +54,12 @@ export default function Chessboard({ isWhite }) {
       pieceToMove.classList.contains("bk")
     ) {
       setAllowedMoves(KingRule(pieceToMove));
+    }
+    if (
+      pieceToMove.classList.contains("wn") ||
+      pieceToMove.classList.contains("bn")
+    ) {
+      setAllowedMoves(KnightRule(pieceToMove));
     }
   };
 
@@ -87,48 +95,56 @@ export default function Chessboard({ isWhite }) {
       x: 0,
       y,
       type: `${type}r`,
+      color: `${type}`,
     });
     initialBoardState.push({
       image: `assets/${type}n.png`,
       x: 1,
       y,
       type: `${type}n`,
+      color: `${type}`,
     });
     initialBoardState.push({
       image: `assets/${type}b.png`,
       x: 2,
       y,
       type: `${type}b`,
+      color: `${type}`,
     });
     initialBoardState.push({
       image: `assets/${type}q.png`,
       x: 3,
       y,
       type: `${type}q`,
+      color: `${type}`,
     });
     initialBoardState.push({
       image: `assets/${type}k.png`,
       x: 4,
       y,
       type: `${type}k`,
+      color: `${type}`,
     });
     initialBoardState.push({
       image: `assets/${type}b.png`,
       x: 5,
       y,
       type: `${type}b`,
+      color: `${type}`,
     });
     initialBoardState.push({
       image: `assets/${type}n.png`,
       x: 6,
       y,
       type: `${type}n`,
+      color: `${type}`,
     });
     initialBoardState.push({
       image: `assets/${type}r.png`,
       x: 7,
       y,
       type: `${type}r`,
+      color: `${type}`,
     });
   }
   //adding pawns
@@ -139,6 +155,7 @@ export default function Chessboard({ isWhite }) {
       x: i,
       y: 1,
       type: "wp",
+      color: "w",
     });
 
     // adding black pawns
@@ -147,6 +164,7 @@ export default function Chessboard({ isWhite }) {
       x: i,
       y: 6,
       type: "bp",
+      color: "b",
     });
   }
 
@@ -157,12 +175,13 @@ export default function Chessboard({ isWhite }) {
       let cell = `${x[j]}${y[i]}`;
       let image = undefined;
       let type = "";
-
+      let color = "";
       // to display pieces
       pieces.forEach((p) => {
         if (p.x === j && p.y === i) {
           image = p.image;
           type = p.type;
+          color = p.color;
         }
       });
 
@@ -170,7 +189,7 @@ export default function Chessboard({ isWhite }) {
         <div
           className={`tile ${sum % 2 === 0 ? "black_tile" : "white_tile"} ${
             type ? "containPiece" : ""
-          }`}
+          } `}
           id={`${cell}`}
           key={cell}
           onClick={(e) => {
@@ -179,7 +198,7 @@ export default function Chessboard({ isWhite }) {
         >
           {image && (
             <div
-              className={`piece ${type} `}
+              className={`piece ${type} ${color}`}
               id={`${cell}`}
               style={{ backgroundImage: `url(${image})` }}
               onClick={(e) => {
